@@ -12,9 +12,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 /*Estructura del post en raw JSON:
 {
-    "title": "hola3",
-    "price": 133.45,
-    "thumbnail": "href3"
+    "title": "Producto 1",
+    "price": 123.45,
+    "thumbnail": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
 }
 */
 
