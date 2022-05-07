@@ -4,9 +4,8 @@ const { Router } = express;
 
 const app = express();
 const router = Router();
-const port = 1336;
+const port = 1338;
 
-const { engine } = require('express-handlebars');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,17 +18,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 }
 */
 
-app.engine(
-  'hbs',
-  engine({
-    extname: 'hbs',
-    defaultLayout: 'index.hbs',
-    layoutsDir: __dirname + '/views/layouts/',
-    partialsDir: __dirname + '/views/partials/'
-  })
-);
 
-app.set('view engine', 'hbs');
+app.set('view engine', 'ejs');
 app.set('views', './views');
 app.use(express.static('public'));
 
@@ -104,7 +94,7 @@ const server = app.listen(port, () => {
 });
 
 app.get('/', (req, res) => {
-  res.render('./layouts/index', { productos, listExists: true });
+  res.render('pages/index', {productos: productos});
 });
 
 server.on('error', error => {

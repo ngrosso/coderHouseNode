@@ -12,7 +12,7 @@
 
 <body class="container mt-5">
   <header>
-    <h1>Lista de Productos Handlebars</h1>
+    <h1>Lista de Productos EJS</h1>
   </header>
   <main>
     <!-- 
@@ -33,7 +33,7 @@
       </div>
       <div class="mb-3">
         <label for="price" class="form-label">Precio</label>
-        <input type="text" class="form-control" name="price" placeholder="1234.56" required>
+        <input type="number" step="0.01" class="form-control" name="price" placeholder="1234.56" required>
       </div>
       <div class="mb-3">
         <label for="thumbnail" class="form-label">Link de la Imagen</label>
@@ -53,13 +53,15 @@
             <th class="col">Imagen</th>
           </tr>
         </thead>
-        {{#if productos}}
-        {{>history}}
-        {{else}}
-        <tr>
-          <td colspan="3" class="table-danger">No hay productos</td>
-        </tr>
-        {{/if}}
+        <% if (productos.length > 0){%>
+          <%- include('../partials/history.ejs')%>
+            <%}else{%>
+              <tbody>
+                <tr>
+                  <td colspan="3" class="table-danger">No hay productos</td>
+                </tr>
+              </tbody>
+              <%}%>
       </table>
     </section>
   </main>

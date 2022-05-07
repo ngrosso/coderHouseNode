@@ -1,0 +1,9 @@
+<tbody>
+  <% productos.forEach(producto => { %>){%>
+    <tr>
+      <td><%=producto.title%></td>
+      <td>$ <%=producto.price%></td>
+      <td><img width="20px" src="<%=producto.thumbnail%>" alt="Imagen de un <%=producto.title%>"></td>
+    </tr>
+  <%});%>
+</tbody>

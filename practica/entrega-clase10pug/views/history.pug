@@ -1,0 +1,18 @@
+extends form
+
+block history
+  table(class="table table-dark table-striped")
+    tr 
+      th(class="col") Nombre
+      th(class="col") Precio 
+      th(class="col") Imagen
+    if productos
+    each product in productos 
+      tr 
+        td #{product.title}
+        td #{product.price}
+        td 
+          img(width=20 src=product.thumbnail)
+    else
+      tr
+        td(colspan="3" class="table-danger") No Hay Productos 

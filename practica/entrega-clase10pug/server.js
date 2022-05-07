@@ -1,37 +1,28 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { Router } = express;
+const path = require('path');
+const pug = require('pug');
+
 
 const app = express();
 const router = Router();
-const port = 1336;
+const port = 1337;
 
-const { engine } = require('express-handlebars');
-
+app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'pug');
+
 /*Estructura del post en raw JSON:
 {
-  "title": "Producto 1",
-  "price": 123.45,
-  "thumbnail": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+    "title": "Producto 1",
+    "price": 123.45,
+    "thumbnail": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
 }
 */
-
-app.engine(
-  'hbs',
-  engine({
-    extname: 'hbs',
-    defaultLayout: 'index.hbs',
-    layoutsDir: __dirname + '/views/layouts/',
-    partialsDir: __dirname + '/views/partials/'
-  })
-);
-
-app.set('view engine', 'hbs');
-app.set('views', './views');
-app.use(express.static('public'));
 
 let productos = [];
 let idBase = 0;
@@ -104,7 +95,7 @@ const server = app.listen(port, () => {
 });
 
 app.get('/', (req, res) => {
-  res.render('./layouts/index', { productos, listExists: true });
+  res.render('history.pug', { title: 'Lista de Productos Pug', productos: productos })
 });
 
 server.on('error', error => {

@@ -1,0 +1,17 @@
+extends layout
+
+block form
+  form(action="./api/productos" method="POST")
+    div(class="mb-3")
+      label(for="title" class="form-label") Titulo 
+      input(type="text" name="title" id="title" class="form-control" placeholder="Escuadra" required )
+    div(class="mb-3")  
+      label(for="price" class="form-label") Precio
+      input(type="text" name="price" id="price" class="form-control" placeholder="1234.56" required)
+    div(class="mb-3")  
+      label(for="thumbnail" class="form-label") Link de la imagen:
+      input(type="text" name="thumbnail" id="thumbnail" class="form-control" placeholder="https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-512.png"
+          required)
+    input(type="submit" class="btn btn-primary" value="Agregar")
+    hr
+  block history
