@@ -1,6 +1,7 @@
 /** Imports e Inicializaciones */
 const express = require('express');
 const { engine } = require('express-handlebars');
+const moment = require('moment');
 const { Server: HttpServer } = require('http');
 const { Server: IOServer } = require('socket.io');
 
@@ -28,20 +29,32 @@ app.engine(
 );
 
 /** Web Socket */
+const products = [];
+const messages = [];
+
 io.on('connection', (socket) => {
   console.log(`Se recibio un nuevo cliente: ${socket.id}`);
-  socket.emit('products', {productos});
-  socket.on('new-product', (producto) => {
-    console.log(`Se recibio un nuevo producto: ${producto.title}`);
-    productos.push(producto);
-    io.sockets.emit('products', {productos});
+
+  socket.emit('products', { products });
+  socket.emit('messages', { messages });
+
+  socket.on('new-product', (product) => {
+    console.log(`Se recibio un nuevo product: ${product.title}`);
+    products.push(product);
+    io.sockets.emit('products', { products });
+  });
+
+  socket.on('new-message', (message) => {
+    console.log(`Se recibio un nuevo mensaje de ${message.author}: ${message.message}`);
+    message['time'] = moment(new Date()).format("DD/MM/YYYY HH:mm:ss");
+    messages.push(message);
+    io.sockets.emit('messages', { messages });
   });
 });
 
 /** Configuracion del server */
-const productos = [];
 app.get('/', (req, res) => {
-  res.render('./layouts/index', { productos, listExists: true });
+  res.render('./layouts/index', { products:products, messages:messages, listExists: true });
 });
 
 const server = httpServer.listen(PORT, () => {

@@ -1,19 +1,26 @@
 const socket = io.connect();
-const btnSubmit = document.getElementById('btn-submit');
+
+// Productos
+const btnSubmitProduct = document.getElementById('btn-submit-product');
 
 function addProdduct(e) {
-  e.preventDefault()
-  const product = {
-    title: document.querySelector('#title').value,
-    price: document.querySelector('#price').value,
-    thumbnail: document.querySelector('#thumbnail').value
-  };
-  console.log(product);
-  socket.emit('new-product', product);
-  return false;
+  if (document.querySelector('#formProducts').checkValidity()) {
+    e.preventDefault()
+    const product = {
+      title: document.querySelector('#title').value,
+      price: document.querySelector('#price').value,
+      thumbnail: document.querySelector('#thumbnail').value
+    };
+    console.log(product);
+    socket.emit('new-product', product);
+    document.querySelector('#title').value = '';
+    document.querySelector('#price').value = '';
+    document.querySelector('#thumbnail').value = '';
+    return false;
+  }
 }
-btnSubmit.addEventListener('click', addProdduct);
 
+btnSubmitProduct.addEventListener('click', addProdduct);
 
 socket.on('products', products => {
   console.log(products)
@@ -26,3 +33,36 @@ socket.on('products', products => {
     })
     .catch(error => console.error(error));
 });
+
+// Mensajes
+const btnSubmitMessage = document.getElementById('btn-submit-message');
+
+function addMessage(e) {
+  if (document.querySelector('#formMessages').checkValidity()) {
+    e.preventDefault()
+    const message = {
+      author: document.querySelector('#author').value,
+      message: document.querySelector('#message').value
+    };
+    console.log(message);
+    socket.emit('new-message', message);
+    document.querySelector('#author').value = message.author;
+    document.querySelector('#message').value = '';
+    document.querySelector('#message').focus();
+    return false;
+  }
+}
+
+btnSubmitMessage.addEventListener('click', addMessage);
+
+socket.on('messages', messages => {
+  console.log(messages)
+  return fetch('/views/partials/messages.hbs')
+    .then(response => response.text())
+    .then(text => {
+      const template = Handlebars.compile(text);
+      const html = template(messages);
+      document.querySelector('#messages').innerHTML = html;
+    })
+    .catch(error => console.error(error));
+})

@@ -1,0 +1,7 @@
+{{#if messages}}
+  {{#each messages}}
+    <span class="header"><strong>{{this.author}}</strong> [{{this.time}}]: </span><span class="payload"><em>{{this.message}}</em></span><br>
+  {{/each}}
+{{else}}
+  <div class="p-3 mb-2 bg-warning">No hay Mensajes!</div>
+{{/if}}

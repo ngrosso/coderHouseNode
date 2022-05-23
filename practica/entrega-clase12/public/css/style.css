@@ -1,0 +1,22 @@
+.message-area {
+  resize: none;
+  height: 100px;
+  width: 100%;
+}
+
+span.header strong {
+  color: rgb(70, 70, 182)
+}
+
+span.header {
+  color: brown;
+}
+
+span.payload {
+  color: green
+}
+
+div#messages {
+
+  padding: 5px;
+}
