@@ -1,0 +1,11 @@
+<tbody>
+  {{#each productsList}}
+    <tr>
+      <td>{{this.title}}</td>
+      <td>$ {{this.price}}</td>
+      <td colspan="2"><img width="128px" src="{{this.thumbnail}}" alt="Imagen de un {{this.title}}"></td>
+      <td><button class="btn btn-info"><img width="32px" height="32px" src="/img/pencil-square.svg"></button>
+      <td><button class="btn btn-danger"><img width="32px" height="32px" src="/img/trash3.svg"></button>
+    </tr>
+  {{/each}}
+</tbody>

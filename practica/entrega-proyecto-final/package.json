@@ -1,0 +1,20 @@
+{
+  "name": "entrega-proyecto-final",
+  "version": "1.0.0",
+  "description": "Proyecto final para CoderHouse",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm run test",
+    "start": "node server.js",
+    "watch": "nodemon server.js"
+  },
+  "author": "ngrosso",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.17.3",
+    "express-handlebars": "^6.0.3",
+    "nodemon": "^2.0.16"
+  }
+}
