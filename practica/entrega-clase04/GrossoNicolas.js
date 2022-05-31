@@ -29,6 +29,21 @@ class Contenedor {
     }
   }
 
+  modifyById(id, object) {
+    try {
+      const data = fs.readFileSync(`./files/${this.nombre}.txt`, 'utf-8');
+      const obj = JSON.parse(data).find(obj => obj.id === id);
+      if (obj) {
+        const dataForWrite = JSON.parse(data).filter(obj => obj.id !== id);
+        object['id'] = id;
+        dataForWrite.push(object);
+        fs.writeFileSync(`./files/${this.nombre}.txt`, JSON.stringify(dataForWrite));
+      }
+    } catch (err) {
+      console.error(err)
+      throw new Error('Error en el archivo');
+    }
+  }
   getById(id) {
     try {
       const data = fs.readFileSync(`./files/${this.nombre}.txt`, 'utf-8');
@@ -109,3 +124,5 @@ console.log("---- Borrado de todos los productos ----");
 productos.deleteAll();
 console.log("---- Obtencion de Lista vacia ----");
 console.log(productos.getAll());
+const id2modify = productos.save(objeto2);
+productos.modifyById(id2modify, objeto1);
